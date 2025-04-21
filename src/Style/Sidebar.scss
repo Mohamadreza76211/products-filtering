@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+  align-items: flex-start; // اضافه شده برای تنظیم بالا به پایین
+}
+
+.sidebar {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.box {
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 10px;
+
+  h3 {
+    margin: 0 0 10px;
+    border-bottom: 1px solid #000;
+    padding-bottom: 5px;
+  }
+
+  .filter-group {
+    margin-bottom: 15px;
+
+    p {
+      margin-bottom: 5px;
+    }
+
+    label {
+      display: block;
+      margin: 5px 0;
+    }
+  }
+
+  label {
+    display: block;
+    margin: 5px 0;
+  }
+}
+
+.products {
+  flex: 1;
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 10px;
+
+  h3 {
+    margin: 0 0 10px;
+    border-bottom: 1px solid #000;
+    padding-bottom: 5px;
+  }
+
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  .product-card {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+}

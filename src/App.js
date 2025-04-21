@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./Style/Sidebar.scss";
+import Sidebar from "./components/Sidebar";
+import Products from "./components/Products";
+import data from "./data/products.json";
 
 function App() {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(data.Data.Products);
+
+  useEffect(() => {
+    let result = data.Data.Products;
+
+    if (selectedCategory) {
+      result = result.filter(
+        (product) => product.CategoryID === selectedCategory
+      );
+    }
+
+    if (selectedOptions.length > 0) {
+      result = result.filter((product) =>
+        selectedOptions.every((opt) =>
+          product.Filters.some((f) => f.Option === opt)
+        )
+      );
+    }
+
+    setFilteredProducts(result);
+  }, [selectedCategory, selectedOptions]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Sidebar
+        categories={data.Data.Categories}
+        filters={data.Data.Filters}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        selectedOptions={selectedOptions}
+        setSelectedOptions={setSelectedOptions}
+      />
+      <Products products={filteredProducts} />
     </div>
   );
 }

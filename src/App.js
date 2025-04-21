@@ -20,9 +20,12 @@ function App() {
 
     if (selectedOptions.length > 0) {
       result = result.filter((product) =>
-        selectedOptions.every((opt) =>
-          product.Filters.some((f) => f.Option === opt)
-        )
+        selectedOptions.every((selectedKey) => {
+          const [filterId, optionId] = selectedKey.split("_").map(Number);
+          return product.Filters.some(
+            (f) => f.Filter === filterId && f.Option === optionId
+          );
+        })
       );
     }
 

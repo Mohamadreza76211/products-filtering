@@ -1,11 +1,12 @@
 import React from "react";
 
 function Filters({ filters, selectedOptions, setSelectedOptions }) {
-  const handleOptionChange = (optionId) => {
-    if (selectedOptions.includes(optionId)) {
-      setSelectedOptions(selectedOptions.filter((id) => id !== optionId));
+  const handleOptionChange = (filterId, optionId) => {
+    const key = `${filterId}_${optionId}`;
+    if (selectedOptions.includes(key)) {
+      setSelectedOptions(selectedOptions.filter((id) => id !== key));
     } else {
-      setSelectedOptions([...selectedOptions, optionId]);
+      setSelectedOptions([...selectedOptions, key]);
     }
   };
 
@@ -15,16 +16,21 @@ function Filters({ filters, selectedOptions, setSelectedOptions }) {
       {filters.map((filter) => (
         <div className="filter-group" key={filter.FilterID}>
           <p>{filter.FilterName}</p>
-          {filter.Options.map((opt) => (
-            <label key={opt.OptionID}>
-              <input
-                type="checkbox"
-                checked={selectedOptions.includes(opt.OptionID)}
-                onChange={() => handleOptionChange(opt.OptionID)}
-              />
-              {opt.OptionName}
-            </label>
-          ))}
+          {filter.Options.map((opt) => {
+            const key = `${filter.FilterID}_${opt.OptionID}`;
+            return (
+              <label key={key}>
+                <input
+                  type="checkbox"
+                  checked={selectedOptions.includes(key)}
+                  onChange={() =>
+                    handleOptionChange(filter.FilterID, opt.OptionID)
+                  }
+                />
+                {opt.OptionName}
+              </label>
+            );
+          })}
         </div>
       ))}
     </div>

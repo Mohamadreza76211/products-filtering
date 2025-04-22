@@ -9,6 +9,39 @@ function App() {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState(data.Data.Products);
 
+  // ⬅️ لود اولیه: خواندن از URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const categoryParam = params.get("category");
+    const filtersParam = params.get("filters");
+
+    if (categoryParam) {
+      setSelectedCategory(Number(categoryParam));
+    }
+
+    if (filtersParam) {
+      const options = filtersParam.split(",").filter(Boolean);
+      setSelectedOptions(options);
+    }
+  }, []);
+
+  // ⬅️ آپدیت URL هنگام تغییر دسته یا فیلتر
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (selectedCategory !== null) {
+      params.set("category", selectedCategory);
+    }
+
+    if (selectedOptions.length > 0) {
+      params.set("filters", selectedOptions.join(","));
+    }
+
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState(null, "", newUrl);
+  }, [selectedCategory, selectedOptions]);
+
+  // ⬅️ فیلتر کردن محصولات با منطق ترکیبی OR و AND
   useEffect(() => {
     let result = data.Data.Products;
 
@@ -19,14 +52,24 @@ function App() {
     }
 
     if (selectedOptions.length > 0) {
-      result = result.filter((product) =>
-        selectedOptions.every((selectedKey) => {
-          const [filterId, optionId] = selectedKey.split("_").map(Number);
+      // گروه‌بندی selectedOptions بر اساس Filter
+      const groupedFilters = {};
+
+      selectedOptions.forEach((key) => {
+        const [filterId, optionId] = key.split("_").map(Number);
+        if (!groupedFilters[filterId]) groupedFilters[filterId] = [];
+        groupedFilters[filterId].push(optionId);
+      });
+
+      result = result.filter((product) => {
+        // بررسی برای هر فیلتر (AND)
+        return Object.entries(groupedFilters).every(([filterId, optionIds]) => {
+          // در هر فیلتر، محصول باید حداقل یکی از optionهای انتخاب‌شده را داشته باشد (OR)
           return product.Filters.some(
-            (f) => f.Filter === filterId && f.Option === optionId
+            (f) => f.Filter === Number(filterId) && optionIds.includes(f.Option)
           );
-        })
-      );
+        });
+      });
     }
 
     setFilteredProducts(result);

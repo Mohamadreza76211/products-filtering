@@ -1,4 +1,5 @@
 import React from "react";
+import { FormControlLabel, Checkbox } from "@mui/material";
 
 function Categories({ categories, selectedCategory, setSelectedCategory }) {
   const handleChange = (id) => {
@@ -6,17 +7,18 @@ function Categories({ categories, selectedCategory, setSelectedCategory }) {
   };
 
   return (
-    <div className="box">
-      <h3>Categories</h3>
+    <div className="category-list">
       {categories.map((cat) => (
-        <label key={cat.CategoryID}>
-          <input
-            type="checkbox"
-            checked={selectedCategory === cat.CategoryID}
-            onChange={() => handleChange(cat.CategoryID)}
-          />
-          {cat.CategoryName}
-        </label>
+        <FormControlLabel
+          key={cat.CategoryID}
+          control={
+            <Checkbox
+              checked={selectedCategory === cat.CategoryID}
+              onChange={() => handleChange(cat.CategoryID)}
+            />
+          }
+          label={cat.CategoryName}
+        />
       ))}
     </div>
   );

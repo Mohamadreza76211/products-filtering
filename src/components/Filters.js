@@ -1,4 +1,5 @@
 import React from "react";
+import { FormControlLabel, Checkbox, Typography } from "@mui/material";
 
 function Filters({ filters, selectedOptions, setSelectedOptions }) {
   const handleOptionChange = (filterId, optionId) => {
@@ -11,24 +12,27 @@ function Filters({ filters, selectedOptions, setSelectedOptions }) {
   };
 
   return (
-    <div className="box">
-      <h3>Filters</h3>
+    <div className="filter-group">
       {filters.map((filter) => (
-        <div className="filter-group" key={filter.FilterID}>
-          <p>{filter.FilterName}</p>
+        <div key={filter.FilterID}>
+          <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+            {filter.FilterName}
+          </Typography>
           {filter.Options.map((opt) => {
             const key = `${filter.FilterID}_${opt.OptionID}`;
             return (
-              <label key={key}>
-                <input
-                  type="checkbox"
-                  checked={selectedOptions.includes(key)}
-                  onChange={() =>
-                    handleOptionChange(filter.FilterID, opt.OptionID)
-                  }
-                />
-                {opt.OptionName}
-              </label>
+              <FormControlLabel
+                key={key}
+                control={
+                  <Checkbox
+                    checked={selectedOptions.includes(key)}
+                    onChange={() =>
+                      handleOptionChange(filter.FilterID, opt.OptionID)
+                    }
+                  />
+                }
+                label={opt.OptionName}
+              />
             );
           })}
         </div>

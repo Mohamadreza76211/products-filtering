@@ -1,4 +1,13 @@
 import React, { useState } from "react";
+import {
+  Button,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+} from "@mui/material";
+import { Link } from "@mui/icons-material";
 
 function Products({ products }) {
   const [copied, setCopied] = useState(false);
@@ -7,44 +16,54 @@ function Products({ products }) {
     const url = window.location.href;
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000); // بعد از ۲ ثانیه پیام پاک شود
+      setTimeout(() => setCopied(false), 2000);
     });
   };
 
   return (
-    <div className="products">
-      <h3>Products</h3>
+    <div className="products" style={{ marginTop: "20px" }}>
+      <Typography variant="h6">Products</Typography>
       {products.length === 0 ? (
-        <p>No products match your filters.</p>
+        <Typography variant="body1">No products match your filters.</Typography>
       ) : (
         <>
-          <div className="product-list">
+          <Grid container spacing={2} sx={{ marginTop: 2 }}>
             {products.map((prod, idx) => (
-              <div key={idx} className="product-card">
-                <img
-                  style={{ height: "120px" }}
-                  src={prod.Image}
-                  alt={prod.ProductName}
-                />
-                <h4>{prod.ProductName}</h4>
-                <p>Price: {prod.Price.toLocaleString()} Toman</p>
-                <p>{prod.Stock ? "In Stock" : "Out of Stock"}</p>
-              </div>
+              <Grid item xs={12} sm={6} md={4} key={idx}>
+                <Card>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={prod.Image}
+                    alt={prod.ProductName}
+                  />
+                  <CardContent>
+                    <Typography variant="h6">{prod.ProductName}</Typography>
+                    <Typography variant="body2">
+                      Price: {prod.Price.toLocaleString()} Toman
+                    </Typography>
+                    <Typography variant="body2">
+                      {prod.Stock ? "In Stock" : "Out of Stock"}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
             ))}
-          </div>
+          </Grid>
 
-          {/* 🔗 دکمه اشتراک‌گذاری */}
           <div style={{ marginTop: "20px", textAlign: "center" }}>
-            <button
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<Link />}
               onClick={handleShare}
-              style={{ padding: "8px 16px", cursor: "pointer" }}
             >
               Share Filtered Link
-            </button>
+            </Button>
             {copied && (
-              <p style={{ color: "green", marginTop: "8px" }}>
+              <Typography variant="body2" sx={{ color: "green", marginTop: 2 }}>
                 Link copied to clipboard!
-              </p>
+              </Typography>
             )}
           </div>
         </>

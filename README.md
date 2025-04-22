@@ -1,34 +1,29 @@
-حتماً! در ادامه یک فایل `README.md` مناسب برای پروژه شما آماده کرده‌ام که می‌توانید در مخزن GitHub قرار دهید. این فایل شامل توضیح کلی، نحوه اجرا، ویژگی‌ها، ساختار پروژه و لینک دمو زنده است:
-
----
-
-```markdown
 # 🛍️ Products Filtering App
 
-یک اپلیکیشن فیلتر پیشرفته محصولات با استفاده از React و Material UI، که قابلیت فیلتر بر اساس دسته‌بندی و ویژگی‌ها را به همراه قابلیت افزودن به سبد خرید و اشتراک‌گذاری لینک فیلتر شده فراهم می‌کند.
+A modern React-based product filtering application with category and multi-option filters, a live shopping cart, and shareable filter URLs.
 
-🌐 **[دمو زنده را ببینید](https://products-filtering.vercel.app/)**
-
----
-
-## 📦 ویژگی‌ها
-
-- فیلتر محصولات بر اساس:
-  - دسته‌بندی‌ها
-  - ویژگی‌های قابل انتخاب (چک‌باکسی)
-- به‌روزرسانی URL براساس فیلترهای اعمال شده (قابل اشتراک‌گذاری)
-- سبد خرید با قابلیت:
-  - افزودن/کاهش تعداد
-  - حذف محصول
-  - محاسبه مجموع قیمت و تعداد
-- طراحی مدرن با استفاده از Material UI
-- قابلیت واکنش‌گرا (Responsive)
+🌐 **[Live Demo](https://products-filtering.vercel.app/)**
 
 ---
 
-## 🛠️ نصب و راه‌اندازی
+## 📦 Features
 
-برای اجرای محلی پروژه:
+- Filter products by:
+  - Categories
+  - Multi-option filters (checkboxes)
+- URL updates automatically based on filters (easy sharing)
+- Shopping cart with:
+  - Add/remove quantity
+  - Remove items
+  - Total quantity and price calculation
+- Modern UI with Material UI components
+- Fully responsive design
+
+---
+
+## 🛠️ Getting Started
+
+To run the project locally:
 
 ```bash
 git clone https://github.com/yourusername/products-filtering.git
@@ -37,59 +32,58 @@ npm install
 npm start
 ```
 
-سپس پروژه در `http://localhost:3000` اجرا خواهد شد.
+Then open `http://localhost:3000` in your browser.
 
 ---
 
-## 📁 ساختار فایل‌ها
+## 📁 Project Structure
 
 ```
 products-filtering/
 │
-├── public/                     # فایل‌های عمومی
+├── public/                     # Static assets
 ├── src/
-│   ├── components/             # کامپوننت‌های UI (Sidebar, Filters, Products, Categories)
-│   ├── data/                   # داده‌های تستی (JSON محصولات، فیلترها و دسته‌ها)
-│   ├── Style/                  # فایل‌های SCSS
-│   ├── App.js                  # فایل اصلی برنامه
-│   └── index.js                # نقطه ورود React
+│   ├── components/             # UI Components (Sidebar, Filters, Products, Categories)
+│   ├── data/                   # JSON mock data (products, categories, filters)
+│   ├── Style/                  # SCSS styles
+│   ├── App.js                  # Main app logic
+│   └── index.js                # Entry point
 ├── README.md
 ├── package.json
 ```
 
 ---
 
-## 🧠 تکنولوژی‌ها
+## 🧠 Tech Stack
 
 - React
 - Material UI
 - SCSS
-- Vite یا Create React App (بسته به پروژه)
-- JSON Mock Data
+- JSON mock data
+- (Vite or Create React App depending on your setup)
 
 ---
 
-## 🔗 لینک‌ها
+## 🔗 Links
 
-- دمو آنلاین: [https://products-filtering.vercel.app/](https://products-filtering.vercel.app/)
-- مخزن GitHub: _(آدرس مخزن شما بعد از آپلود)_
-
----
-
-## 📌 نکات توسعه
-
-- تمامی فیلترها به صورت داینامیک از فایل JSON بارگزاری می‌شوند.
-- قابلیت اشتراک‌گذاری لینک، با استفاده از `window.location.search` پیاده‌سازی شده است.
-- سبد خرید در حافظه موقتی (state) نگه‌داری می‌شود و ذخیره دائمی ندارد.
+- Live Demo: [https://products-filtering.vercel.app/](https://products-filtering.vercel.app/)
+- GitHub Repository: _(Add your repository link here)_
 
 ---
 
-## 👨‍💻 توسعه‌دهنده
+## ⚙️ Developer Notes
 
-این پروژه برای اهداف آموزشی طراحی شده و قابل توسعه برای استفاده واقعی در فروشگاه‌های آنلاین است.
+- All filters and categories are loaded dynamically from a local JSON file.
+- Filter state is reflected in the URL, allowing easy sharing and restoring.
+- Cart functionality is kept in-memory using React `useState` (not persisted).
 
+---
+
+## 👨‍💻 Author
+
+This project is built for educational purposes and can be easily extended for real-world e-commerce use cases.
 ```
 
 ---
 
-اگر دوست داری، می‌تونم نسخه فارسی یا انگلیسی رو جداگانه یا دوزبانه تنظیم کنم. فقط کافیه بگی.
+Let me know if you want a bilingual version or want to include deployment instructions (like Vercel).

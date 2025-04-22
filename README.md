@@ -67,7 +67,6 @@ products-filtering/
 ## 🔗 Links
 
 - Live Demo: [https://products-filtering.vercel.app/](https://products-filtering.vercel.app/)
-- GitHub Repository: _(Add your repository link here)_
 
 ---
 

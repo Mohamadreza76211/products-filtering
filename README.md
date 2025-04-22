@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+حتماً! در ادامه یک فایل `README.md` مناسب برای پروژه شما آماده کرده‌ام که می‌توانید در مخزن GitHub قرار دهید. این فایل شامل توضیح کلی، نحوه اجرا، ویژگی‌ها، ساختار پروژه و لینک دمو زنده است:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+```markdown
+# 🛍️ Products Filtering App
 
-In the project directory, you can run:
+یک اپلیکیشن فیلتر پیشرفته محصولات با استفاده از React و Material UI، که قابلیت فیلتر بر اساس دسته‌بندی و ویژگی‌ها را به همراه قابلیت افزودن به سبد خرید و اشتراک‌گذاری لینک فیلتر شده فراهم می‌کند.
 
-### `npm start`
+🌐 **[دمو زنده را ببینید](https://products-filtering.vercel.app/)**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📦 ویژگی‌ها
 
-### `npm test`
+- فیلتر محصولات بر اساس:
+  - دسته‌بندی‌ها
+  - ویژگی‌های قابل انتخاب (چک‌باکسی)
+- به‌روزرسانی URL براساس فیلترهای اعمال شده (قابل اشتراک‌گذاری)
+- سبد خرید با قابلیت:
+  - افزودن/کاهش تعداد
+  - حذف محصول
+  - محاسبه مجموع قیمت و تعداد
+- طراحی مدرن با استفاده از Material UI
+- قابلیت واکنش‌گرا (Responsive)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🛠️ نصب و راه‌اندازی
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+برای اجرای محلی پروژه:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+git clone https://github.com/yourusername/products-filtering.git
+cd products-filtering
+npm install
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+سپس پروژه در `http://localhost:3000` اجرا خواهد شد.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📁 ساختار فایل‌ها
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+products-filtering/
+│
+├── public/                     # فایل‌های عمومی
+├── src/
+│   ├── components/             # کامپوننت‌های UI (Sidebar, Filters, Products, Categories)
+│   ├── data/                   # داده‌های تستی (JSON محصولات، فیلترها و دسته‌ها)
+│   ├── Style/                  # فایل‌های SCSS
+│   ├── App.js                  # فایل اصلی برنامه
+│   └── index.js                # نقطه ورود React
+├── README.md
+├── package.json
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🧠 تکنولوژی‌ها
 
-## Learn More
+- React
+- Material UI
+- SCSS
+- Vite یا Create React App (بسته به پروژه)
+- JSON Mock Data
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🔗 لینک‌ها
 
-### Code Splitting
+- دمو آنلاین: [https://products-filtering.vercel.app/](https://products-filtering.vercel.app/)
+- مخزن GitHub: _(آدرس مخزن شما بعد از آپلود)_
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 📌 نکات توسعه
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- تمامی فیلترها به صورت داینامیک از فایل JSON بارگزاری می‌شوند.
+- قابلیت اشتراک‌گذاری لینک، با استفاده از `window.location.search` پیاده‌سازی شده است.
+- سبد خرید در حافظه موقتی (state) نگه‌داری می‌شود و ذخیره دائمی ندارد.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 👨‍💻 توسعه‌دهنده
 
-### Advanced Configuration
+این پروژه برای اهداف آموزشی طراحی شده و قابل توسعه برای استفاده واقعی در فروشگاه‌های آنلاین است.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+اگر دوست داری، می‌تونم نسخه فارسی یا انگلیسی رو جداگانه یا دوزبانه تنظیم کنم. فقط کافیه بگی.

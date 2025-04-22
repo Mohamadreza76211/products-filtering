@@ -11,15 +11,14 @@ import {
   IconButton,
   Popover,
   List,
-  ListItem,
   Divider,
 } from "@mui/material";
 import {
-  Link,
   ShoppingCart,
   Add,
   Remove,
   Delete as DeleteIcon,
+  Share as ShareIcon,
 } from "@mui/icons-material";
 
 function Products({ products }) {
@@ -36,14 +35,17 @@ function Products({ products }) {
   };
 
   const handleAddToCart = (product) => {
+    const uniqueId = `${product.ProductName}-${product.Price}`;
+    const newProduct = { ...product, id: uniqueId };
+
     setCartItems((prev) => {
-      const existing = prev.find((p) => p.id === product.id);
+      const existing = prev.find((p) => p.id === newProduct.id);
       if (existing) {
         return prev.map((p) =>
-          p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
+          p.id === newProduct.id ? { ...p, quantity: p.quantity + 1 } : p
         );
       } else {
-        return [...prev, { ...product, quantity: 1 }];
+        return [...prev, { ...newProduct, quantity: 1 }];
       }
     });
   };
@@ -72,7 +74,7 @@ function Products({ products }) {
 
   const getTotalPrice = () => {
     return cartItems.reduce((total, item) => {
-      return total + item.Price * item.quantity;
+      return total + Number(item.Price) * item.quantity;
     }, 0);
   };
 
@@ -109,9 +111,7 @@ function Products({ products }) {
           onClose={handlePopoverClose}
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           transformOrigin={{ vertical: "top", horizontal: "right" }}
-          PaperProps={{
-            sx: { maxWidth: 350, p: 2 },
-          }}
+          PaperProps={{ sx: { maxWidth: 350, p: 2 } }}
         >
           <Typography variant="subtitle1" sx={{ mb: 1 }}>
             🛒 سبد خرید
@@ -123,48 +123,57 @@ function Products({ products }) {
           ) : (
             <>
               <List dense>
-                {cartItems.map((item) => (
-                  <div key={item.id} style={{ width: "100%" }}>
-                    <ListItem
-                      disableGutters
-                      sx={{ flexDirection: "column", alignItems: "flex-start" }}
-                    >
+                {cartItems.map((item, index) => (
+                  <Card
+                    key={`${item.id}-${index}`}
+                    variant="outlined"
+                    sx={{ mb: 2, p: 1, display: "flex", alignItems: "center" }}
+                  >
+                    <CardMedia
+                      component="img"
+                      image={item.Image}
+                      alt={item.ProductName}
+                      sx={{
+                        width: 64,
+                        height: 64,
+                        borderRadius: 1,
+                        objectFit: "contain",
+                        mr: 2,
+                      }}
+                    />
+                    <Box sx={{ flexGrow: 1 }}>
                       <Typography variant="subtitle2">
                         {item.ProductName}
                       </Typography>
-                      <Typography variant="body2">
-                        قیمت: {item.Price.toLocaleString()} تومان
+                      <Typography variant="body2" color="text.secondary">
+                        {Number(item.Price).toLocaleString()} تومان
                       </Typography>
                       <Box
                         sx={{ display: "flex", alignItems: "center", mt: 1 }}
                       >
-                        <Typography variant="body2" sx={{ mr: 1 }}>
-                          تعداد:
-                        </Typography>
                         <IconButton
                           size="small"
                           onClick={() => handleRemoveOne(item.id)}
                         >
                           <Remove fontSize="small" />
                         </IconButton>
-                        <Typography variant="body2">{item.quantity}</Typography>
+                        <Typography sx={{ mx: 1 }}>{item.quantity}</Typography>
                         <IconButton
                           size="small"
                           onClick={() => handleAddOne(item.id)}
                         >
                           <Add fontSize="small" />
                         </IconButton>
-                        <IconButton
-                          size="small"
-                          color="error"
-                          onClick={() => handleDeleteItem(item.id)}
-                        >
-                          <DeleteIcon fontSize="small" />
-                        </IconButton>
                       </Box>
-                    </ListItem>
-                    <Divider sx={{ my: 1 }} />
-                  </div>
+                    </Box>
+                    <IconButton
+                      size="small"
+                      color="error"
+                      onClick={() => handleDeleteItem(item.id)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Card>
                 ))}
               </List>
 
@@ -176,10 +185,9 @@ function Products({ products }) {
         </Popover>
       </div>
 
-      {/* لیست محصولات */}
-      <Typography variant="h6">Products</Typography>
+      <Typography variant="h6">محصولات</Typography>
       {products.length === 0 ? (
-        <Typography variant="body1">No products match your filters.</Typography>
+        <Typography variant="body1">محصولی یافت نشد.</Typography>
       ) : (
         <>
           <Grid container spacing={2} sx={{ marginTop: 2 }}>
@@ -195,19 +203,55 @@ function Products({ products }) {
                   <CardContent>
                     <Typography variant="h6">{prod.ProductName}</Typography>
                     <Typography variant="body2">
-                      Price: {prod.Price.toLocaleString()} Toman
+                      قیمت: {Number(prod.Price).toLocaleString()} تومان
                     </Typography>
 
                     {prod.Stock ? (
-                      <Button
-                        variant="contained"
-                        fullWidth
-                        color="success"
-                        sx={{ mt: 2 }}
-                        onClick={() => handleAddToCart(prod)}
-                      >
-                        Add to Cart
-                      </Button>
+                      (() => {
+                        const id = `${prod.ProductName}-${prod.Price}`;
+                        const itemInCart = cartItems.find(
+                          (item) => item.id === id
+                        );
+
+                        return itemInCart ? (
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              mt: 2,
+                            }}
+                          >
+                            <IconButton
+                              size="small"
+                              color="primary"
+                              onClick={() => handleRemoveOne(itemInCart.id)}
+                            >
+                              <Remove />
+                            </IconButton>
+                            <Typography sx={{ mx: 1 }}>
+                              {itemInCart.quantity}
+                            </Typography>
+                            <IconButton
+                              size="small"
+                              color="primary"
+                              onClick={() => handleAddOne(itemInCart.id)}
+                            >
+                              <Add />
+                            </IconButton>
+                          </Box>
+                        ) : (
+                          <Button
+                            variant="contained"
+                            fullWidth
+                            color="success"
+                            sx={{ mt: 2 }}
+                            onClick={() => handleAddToCart(prod)}
+                          >
+                            Add{" "}
+                          </Button>
+                        );
+                      })()
                     ) : (
                       <Box
                         sx={{
@@ -233,14 +277,14 @@ function Products({ products }) {
             <Button
               variant="contained"
               color="primary"
-              startIcon={<Link />}
+              startIcon={<ShareIcon />}
               onClick={handleShare}
             >
-              Share Filtered Link
+              اشتراک‌گذاری لینک فیلتر شده
             </Button>
             {copied && (
               <Typography variant="body2" sx={{ color: "green", marginTop: 2 }}>
-                Link copied to clipboard!
+                لینک با موفقیت کپی شد!
               </Typography>
             )}
           </div>
